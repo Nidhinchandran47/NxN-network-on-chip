@@ -52,12 +52,12 @@
 ////////////////////////////////////////////////////////////////////////////////////
                                                                                   
 module router #(parameter BUS_WIDTH =32,
-        parameter LOC_X = 2'b01,                                                           //  Address of this router
+        parameter LOC_X = 2'b01,                                                                   //  Address of this router
         parameter LOC_Y = 2'b10,
-        parameter NOC_SIZE = 3'b100 )                                                      //   4X4 network
+	parameter NOC_SIZE = 3'b100 )                                                              //   4X4 network
          
         (
-        input [BUS_WIDTH-1:0] north_in,                                                    //    
+		input [BUS_WIDTH-1:0] north_in,                                                    //    
 		input [BUS_WIDTH-1:0] south_in,                                                    //
 		input [BUS_WIDTH-1:0] west_in,                                                     //     32 bit width input filts from each directions
 		input [BUS_WIDTH-1:0] east_in,                                                     //
@@ -86,13 +86,13 @@ module router #(parameter BUS_WIDTH =32,
 
 		input rst                                                                          //     reset signal
     );
-//               intermidiate register declaration
+                //               intermidiate register declaration
                                                                                   
-        reg [BUS_WIDTH-1:0] in_north;                                                      //
-        reg [BUS_WIDTH-1:0] in_south;                                                      //
-        reg [BUS_WIDTH-1:0] in_east;                                                       //
-        reg [BUS_WIDTH-1:0] in_west;                                                       //
-        reg [BUS_WIDTH-1:0] in_local;                                                      //
+	reg [BUS_WIDTH-1:0] in_north;                                                              //
+	reg [BUS_WIDTH-1:0] in_south;                                                              //
+	reg [BUS_WIDTH-1:0] in_east;                                                               //
+	reg [BUS_WIDTH-1:0] in_west;                                                               //
+	reg [BUS_WIDTH-1:0] in_local;                                                              //
         
         reg [3:0] north_route;
         reg [3:0] south_route;
@@ -216,7 +216,7 @@ module router #(parameter BUS_WIDTH =32,
                             begin                                                                              //
                                 north_route   = WEST;                                                          //
                             end                                                                                //
-                        else if ((in_north[BUS_WIDTH-1:BUS_WIDTH-ADDR_SIZE] == LOC_Y) && (in_north[BUS_WIDTH-ADDR_SIZE-1:BUS_WIDTH-(2*ADDR_SIZE)] == LOC_X ) )                    //
+                        else if ((in_north[BUS_WIDTH-1:BUS_WIDTH-ADDR_SIZE] == LOC_Y) && (in_north[BUS_WIDTH-ADDR_SIZE-1:BUS_WIDTH-(2*ADDR_SIZE)] == LOC_X ) )                    
                             begin                                                                              //
                                 north_route   = LOCAL;                                                         // X match
                             end
@@ -247,7 +247,7 @@ module router #(parameter BUS_WIDTH =32,
                                 begin                                                                                   //
                                     south_route   = WEST;                                                               //
                                 end                                                                                     //
-                            else if((in_south[BUS_WIDTH-1:BUS_WIDTH-ADDR_SIZE] == LOC_Y) && (in_south[BUS_WIDTH-ADDR_SIZE-1:BUS_WIDTH-(2*ADDR_SIZE)] == LOC_X ))               //
+                            else if((in_south[BUS_WIDTH-1:BUS_WIDTH-ADDR_SIZE] == LOC_Y) && (in_south[BUS_WIDTH-ADDR_SIZE-1:BUS_WIDTH-(2*ADDR_SIZE)] == LOC_X ))                
                                 begin                                                                                   //
                                     south_route   = LOCAL;                                                              // X match
                                 end
@@ -277,7 +277,7 @@ module router #(parameter BUS_WIDTH =32,
                                 begin                                                                                  //
                                     east_route   = WEST;                                                               //
                                 end                                                                                    //
-                            else if((in_east[BUS_WIDTH-1:BUS_WIDTH-ADDR_SIZE] == LOC_Y) && (in_east[BUS_WIDTH-ADDR_SIZE-1:BUS_WIDTH-(2*ADDR_SIZE)] == LOC_X ))               //
+                            else if((in_east[BUS_WIDTH-1:BUS_WIDTH-ADDR_SIZE] == LOC_Y) && (in_east[BUS_WIDTH-ADDR_SIZE-1:BUS_WIDTH-(2*ADDR_SIZE)] == LOC_X ))                
                                begin                                                                                   //
                                     east_route   = LOCAL;                                                              // X match
                                 end
@@ -307,7 +307,7 @@ module router #(parameter BUS_WIDTH =32,
                                 begin                                                                                  //
                                     west_route   = WEST;                                                               //
                                 end                                                                                    //
-                            else if((in_west[BUS_WIDTH-1:BUS_WIDTH-ADDR_SIZE] == LOC_Y) && (in_west[BUS_WIDTH-ADDR_SIZE-1:BUS_WIDTH-(2*ADDR_SIZE)] == LOC_X ))               //
+                            else if((in_west[BUS_WIDTH-1:BUS_WIDTH-ADDR_SIZE] == LOC_Y) && (in_west[BUS_WIDTH-ADDR_SIZE-1:BUS_WIDTH-(2*ADDR_SIZE)] == LOC_X ))               
                                    begin                                                                               //
                                         west_route   = LOCAL;                                                          // X match
                                     end
@@ -338,7 +338,7 @@ module router #(parameter BUS_WIDTH =32,
                                 begin                                                                                  //
                                     local_route   = WEST;                                                              //
                                 end                                                                                    //
-                             else if((in_local[BUS_WIDTH-1:BUS_WIDTH-ADDR_SIZE] == LOC_Y) && (in_local[BUS_WIDTH-ADDR_SIZE-1:BUS_WIDTH-(2*ADDR_SIZE)] == LOC_X ))               //
+                             else if((in_local[BUS_WIDTH-1:BUS_WIDTH-ADDR_SIZE] == LOC_Y) && (in_local[BUS_WIDTH-ADDR_SIZE-1:BUS_WIDTH-(2*ADDR_SIZE)] == LOC_X ))               
                                    begin                                                                               //
                                         local_route   = LOCAL;                                                         // X match
                                     end
